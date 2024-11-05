@@ -1,0 +1,31 @@
+{
+    "name": "azure-openai-keyless",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
+    "features": {
+        "ghcr.io/azure/azure-dev/azd:latest": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff",
+                "ms-azuretools.azure-dev",
+                "ms-azuretools.vscode-bicep"
+            ],
+            "python.defaultInterpreterPath": "/usr/local/bin/python",
+            "[python]": {
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                    "source.fixAll": "explicit"
+                },
+                "editor.defaultFormatter": "charliermarsh.ruff"
+			}
+        }
+    },
+    "postCreateCommand": "",
+    "remoteUser": "vscode",
+    "hostRequirements": {
+        "memory": "8gb"
+    }
+}

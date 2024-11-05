@@ -1,0 +1,8 @@
+azure-identity
+openai
+python-dotenv
+pydantic
+rich
+beautifulsoup4
+pymupdf4llm
+azure-ai-inference
