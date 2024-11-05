@@ -26,7 +26,7 @@ This repository includes both the infrastructure and Python files needed so that
   * [VS Code Dev Containers](#vs-code-dev-containers)
   * [Local environment](#local-environment)
 * [Deployment](#deployment)
-* [Running the Python example](#running-the-python-example)
+* [Running the Python examples](#running-the-python-examples)
 * [Guidance](#guidance)
   * [Costs](#costs)
   * [Security guidelines](#security-guidelines)
@@ -120,7 +120,7 @@ A related option is VS Code Dev Containers, which will open the project in your 
 
 4. Then you can proceed to [run the Python examples](#running-the-python-examples).
 
-## Running the Python example
+## Running the Python examples
 
 1. If you're not already running in a Codespace or Dev Container, create a Python virtual environment.
 
