@@ -41,7 +41,7 @@ This repository includes both the infrastructure and Python files needed so that
 
 ### Architecture diagram
 
-![Architecture diagram: Microsoft Entra managed identity connecting to Azure AI services](./diagram.png)
+![Architecture diagram: Microsoft Entra managed identity connecting to Azure AI services](./readme_diagram.png)
 
 ## Getting started
 
@@ -132,12 +132,14 @@ A related option is VS Code Dev Containers, which will open the project in your 
 
 3. Run an example by running either `python example_file.py` or selecting the `Run` button on the opened file. Available examples:
 
-    * `extract_github_issue.py`: Fetches a public issue using the GitHub API, and then extracts details.
-    * `extract_github_repo.py`: Fetches a public README using the GitHub API, and then extracts details.
-    * `extract_image_graph.py`: Parses a local image of a graph and extracts details like title, axis, legend.
-    * `extract_image_table.py`: Parses a local image with tables and extracts nested tabular data.
-    * `extract_pdf_receipt.py`: Parses a local PDF using `pymupdf`, which converts it to Markdown, and extracts order details.
-    * `extract_webpage.py`: Parses a blog post using `BeautifulSoup`, and extracts title, description, and tags.
+    | Script filename       | Description                                                                 |
+    |---------------------------|-----------------------------------------------------------------------------|
+    | `extract_github_issue.py` | Fetches a public issue using the GitHub API, and then extracts details.     |
+    | `extract_github_repo.py`  | Fetches a public README using the GitHub API, and then extracts details.    |
+    | `extract_image_graph.py`  | Parses a local image of a graph and extracts details like title, axis, legend. |
+    | `extract_image_table.py`  | Parses a local image with tables and extracts nested tabular data.          |
+    | `extract_pdf_receipt.py`  | Parses a local PDF using `pymupdf`, which converts it to Markdown, and extracts order details. |
+    | `extract_webpage.py`      | Parses a blog post using `BeautifulSoup`, and extracts title, description, and tags. |
 
 ## Guidance
 
