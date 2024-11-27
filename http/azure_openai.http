@@ -1,0 +1,40 @@
+POST https://{{$dotenv AZURE_OPENAI_SERVICE}}.openai.azure.com/openai/deployments/{{$dotenv AZURE_OPENAI_GPT_DEPLOYMENT}}/chat/completions?api-version=2024-08-01-preview
+Authorization: Bearer {{$dotenv AZURE_OPENAI_TOKEN}}
+Content-Type: application/json
+
+{
+    "messages": [
+        {"role": "system", "content": "Extract the event information."},
+        {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."}
+    ],
+    "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "CalendarEventResponse",
+            "strict": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "participants": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "date",
+                    "participants"
+                ],
+                "additionalProperties": false
+            }
+        }
+    }
+}

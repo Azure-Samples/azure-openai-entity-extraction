@@ -8,10 +8,11 @@
         "vscode": {
             "extensions": [
                 "ms-python.python",
-				"ms-python.vscode-pylance",
-				"charliermarsh.ruff",
+                "ms-python.vscode-pylance",
+                "charliermarsh.ruff",
                 "ms-azuretools.azure-dev",
-                "ms-azuretools.vscode-bicep"
+                "ms-azuretools.vscode-bicep",
+                "humao.rest-client"
             ],
             "python.defaultInterpreterPath": "/usr/local/bin/python",
             "[python]": {
