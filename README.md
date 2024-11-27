@@ -122,15 +122,36 @@ A related option is VS Code Dev Containers, which will open the project in your 
 
 ## Running the Python examples
 
-1. If you're not already running in a Codespace or Dev Container, create a Python virtual environment.
+To run the samples, you'll either need to have already [deployed the Azure OpenAI account](#deployment) or use GitHub models.
 
-2. Install the requirements:
+1. Check that the `.env` file exists in the root of the project. If you [deployed an Azure OpenAI account](#deployment), it should have been created for you, and look like this:
+
+    ```shell
+    OPENAI_HOST=azure
+    AZURE_OPENAI_GPT_DEPLOYMENT=gpt-4o
+    AZURE_OPENAI_SERVICE=your-service-name
+    AZURE_TENANT_ID=your-tenant-id-1234
+    ```
+
+    If you're using GitHub models, create a `.env` file with the following content:
+
+    ```shell
+    OPENAI_HOST=github
+    GITHUB_TOKEN=
+    ```
+
+    You can create a GitHub token by following the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token),
+    or open this project inside GitHub Codespaces where the token is already exposed as an environment variable.
+
+2. If you're not already running in a Codespace or Dev Container, create a Python virtual environment.
+
+3. Install the requirements:
 
     ```shell
     python -m pip install -r requirements.txt
     ```
 
-3. Run an example by running either `python example_file.py` or selecting the `Run` button on the opened file. Available examples:
+4. Run an example by running either `python example_file.py` or selecting the `Run` button on the opened file. Available examples:
 
     | Script filename       | Description                                                                 |
     |---------------------------|-----------------------------------------------------------------------------|

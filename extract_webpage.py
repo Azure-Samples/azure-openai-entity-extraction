@@ -12,19 +12,28 @@ from rich import print
 logging.basicConfig(level=logging.WARNING)
 load_dotenv()
 
-# Configure Azure OpenAI
-if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
-    logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT environment variables are empty. See README.")
-    exit(1)
-credential = azure.identity.AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID"))
-token_provider = azure.identity.get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
-client = openai.AzureOpenAI(
-    api_version="2024-08-01-preview",
-    azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
-    azure_ad_token_provider=token_provider,
-)
-model_name = os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT")
-
+if os.getenv("OPENAI_HOST", "azure") == "azure":
+    if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
+        logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
+        exit(1)
+    credential = azure.identity.AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID"))
+    token_provider = azure.identity.get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
+    client = openai.AzureOpenAI(
+        api_version="2024-08-01-preview",
+        azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
+        azure_ad_token_provider=token_provider,
+    )
+    model_name = os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT")
+else:
+    if not os.getenv("GITHUB_TOKEN"):
+        logging.warning("GITHUB_TOKEN env variable is empty. See README.")
+        exit(1)
+    client = openai.OpenAI(
+        base_url="https://models.inference.ai.azure.com",
+        api_key=os.environ["GITHUB_TOKEN"],
+        # Specify the API version to use the Structured Outputs feature
+        default_query={"api-version": "2024-08-01-preview"})
+    model_name = "gpt-4o"
 
 # Define models for Structured Outputs
 class BlogPost(BaseModel):
@@ -46,7 +55,7 @@ post_contents = soup.find("div", class_="post-body").get_text(strip=True)
 
 # Send request to GPT model to extract using Structured Outputs
 completion = client.beta.chat.completions.parse(
-    model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
+    model=model_name,
     messages=[
         {"role": "system", "content": "Extract the information from the blog post"},
         {"role": "user", "content": f"{post_title}\n{post_contents}"},
