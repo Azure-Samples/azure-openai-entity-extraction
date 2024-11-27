@@ -55,7 +55,7 @@ md_text = pymupdf4llm.to_markdown("example_receipt.pdf")
 
 # Send request to GPT model to extract using Structured Outputs
 completion = client.beta.chat.completions.parse(
-    model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
+    model=model_name,
     messages=[
         {"role": "system", "content": "Extract the information from the blog post"},
         {"role": "user", "content": md_text},

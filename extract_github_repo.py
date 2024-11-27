@@ -80,7 +80,7 @@ readme_content = base64.b64decode(content["content"]).decode("utf-8")
 
 # Send request to GPT model to extract using Structured Outputs
 completion = client.beta.chat.completions.parse(
-    model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
+    model=model_name,
     messages=[
         {
             "role": "system",

@@ -56,7 +56,7 @@ image_url = open_image_as_base64("example_graph_treecover.png")
 
 # Send request to GPT model to extract using Structured Outputs
 completion = client.beta.chat.completions.parse(
-    model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
+    model=model_name,
     messages=[
         {"role": "system", "content": "Extract the information from the graph"},
         {
