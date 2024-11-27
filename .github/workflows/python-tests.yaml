@@ -29,5 +29,6 @@ jobs:
         - name: Run Python script
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            OPENAI_HOST: github
           run: | 
             python3 extract_webpage.py
