@@ -20,7 +20,7 @@ class CalendarEvent(BaseModel):
 
 
 completion = client.beta.chat.completions.parse(
-    model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
+    model=model_name,
     messages=[
         {"role": "system", "content": "Extract the event information."},
         {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."},
