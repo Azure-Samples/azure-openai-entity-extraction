@@ -18,7 +18,9 @@ if os.getenv("OPENAI_HOST", "azure") == "azure":
         logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
         exit(1)
     credential = azure.identity.AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID"))
-    token_provider = azure.identity.get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
+    token_provider = azure.identity.get_bearer_token_provider(
+        credential, "https://cognitiveservices.azure.com/.default"
+    )
     client = openai.AzureOpenAI(
         api_version="2024-08-01-preview",
         azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
@@ -33,7 +35,8 @@ else:
         base_url="https://models.inference.ai.azure.com",
         api_key=os.environ["GITHUB_TOKEN"],
         # Specify the API version to use the Structured Outputs feature
-        default_query={"api-version": "2024-08-01-preview"})
+        default_query={"api-version": "2024-08-01-preview"},
+    )
     model_name = "gpt-4o"
 
 

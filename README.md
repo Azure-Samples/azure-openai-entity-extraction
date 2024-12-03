@@ -155,6 +155,8 @@ To run the samples, you'll either need to have already [deployed the Azure OpenA
 
     | Script filename       | Description                                                                 |
     |---------------------------|-----------------------------------------------------------------------------|
+    | `basic_azure.py`          | A basic example that uses deployed Azure OpenAI resource to extract from string input. |
+    | `basic_githubmodels.py`         | A basic example that uses free gpt-4o from GitHub Models  to extract from string input. |
     | `extract_github_issue.py` | Fetches a public issue using the GitHub API, and then extracts details.     |
     | `extract_github_repo.py`  | Fetches a public README using the GitHub API, and then extracts details.    |
     | `extract_image_graph.py`  | Parses a local image of a graph and extracts details like title, axis, legend. |
