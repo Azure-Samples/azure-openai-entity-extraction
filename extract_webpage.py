@@ -68,5 +68,4 @@ completion = client.beta.chat.completions.parse(
 )
 
 output = completion.choices[0].message.parsed
-blog_post = BlogPost.model_validate(output)
-print(blog_post)
+print(output)

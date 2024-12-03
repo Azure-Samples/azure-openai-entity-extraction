@@ -37,6 +37,4 @@ completion = client.beta.chat.completions.parse(
 )
 
 output = completion.choices[0].message.parsed
-event = CalendarEvent.model_validate(output)
-
-rich.print(event)
+rich.print(output)

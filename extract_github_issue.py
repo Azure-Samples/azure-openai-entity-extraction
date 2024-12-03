@@ -80,5 +80,4 @@ completion = client.beta.chat.completions.parse(
 )
 
 output = completion.choices[0].message.parsed
-hack_submission = HackSubmission.model_validate(output)
-print(hack_submission)
+print(output)

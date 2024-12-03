@@ -95,5 +95,4 @@ completion = client.beta.chat.completions.parse(
 )
 
 output = completion.choices[0].message.parsed
-repo_overview = RepoOverview.model_validate(output)
-rich.print(repo_overview)
+rich.print(output)

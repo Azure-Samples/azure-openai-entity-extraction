@@ -73,5 +73,4 @@ completion = client.beta.chat.completions.parse(
 )
 
 output = completion.choices[0].message.parsed
-graph = Graph.model_validate(output)
-print(graph)
+print(output)
