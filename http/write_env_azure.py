@@ -9,7 +9,7 @@ load_azd_env()
 # Get a token from Azure
 token_provider = azure.identity.get_bearer_token_provider(
     azure.identity.AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")),
-    "https://cognitiveservices.azure.com/.default"
+    "https://cognitiveservices.azure.com/.default",
 )
 token = token_provider()
 

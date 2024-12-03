@@ -11,14 +11,13 @@ logging.basicConfig(level=logging.WARNING)
 load_dotenv()
 
 token_provider = get_bearer_token_provider(
-    AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")),
-    "https://cognitiveservices.azure.com/.default"
+    AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")), "https://cognitiveservices.azure.com/.default"
 )
 
 client = AzureOpenAI(
-  azure_endpoint = f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
-  azure_ad_token_provider=token_provider,
-  api_version="2024-10-21"
+    azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
+    azure_ad_token_provider=token_provider,
+    api_version="2024-10-21",
 )
 
 
@@ -26,6 +25,7 @@ class CalendarEvent(BaseModel):
     name: str
     date: str
     participants: list[str]
+
 
 completion = client.beta.chat.completions.parse(
     model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
