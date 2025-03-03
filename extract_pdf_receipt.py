@@ -66,6 +66,9 @@ completion = client.beta.chat.completions.parse(
     response_format=Receipt,
 )
 
-output = completion.choices[0].message.parsed
-receipt = Receipt.model_validate(output)
-print(receipt)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)
+

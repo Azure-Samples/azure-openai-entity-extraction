@@ -80,6 +80,8 @@ completion = client.beta.chat.completions.parse(
     response_format=PlantInventory,
 )
 
-output = completion.choices[0].message.parsed
-plant_inventory = PlantInventory.model_validate(output)
-print(plant_inventory)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)

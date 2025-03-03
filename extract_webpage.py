@@ -67,6 +67,9 @@ completion = client.beta.chat.completions.parse(
     response_format=BlogPost,
 )
 
-output = completion.choices[0].message.parsed
-blog_post = BlogPost.model_validate(output)
-print(blog_post)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)
+
