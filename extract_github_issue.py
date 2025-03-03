@@ -41,28 +41,21 @@ else:
 
 
 # Define models for Structured Outputs
-class Technology(str, Enum):
-    JAVASCRIPT = "JavaScript"
-    PYTHON = "Python"
-    DOTNET = ".NET"
-    AISTUDIO = "AI Studio"
-    AISEARCH = "AI Search"
-    POSTGRESQL = "PostgreSQL"
-    COSMOSDB = "CosmosDB"
-    AZURESQL = "Azure SQL"
+class IssueType(str, Enum):
+    BUGREPORT = "Bug Report"
+    FEATURE = "Feature"
+    DOCUMENTATION = "Documentation"
+    REGRESSION = "Regression"
 
 
-class HackSubmission(BaseModel):
-    name: str
+class Issue(BaseModel):
+    title: str
     description: str = Field(..., description="A 1-2 sentence description of the project")
-    technologies: list[Technology]
-    repository_url: str
-    video_url: str
-    team_members: list[str]
-
+    type: IssueType
+    operating_system: str
 
 # Fetch an issue from a public GitHub repository
-url = "https://api.github.com/repos/microsoft/RAG_Hack/issues/159"
+url = "https://api.github.com/repos/Azure-Samples/azure-search-openai-demo/issues/2231"
 response = requests.get(url)
 if response.status_code != 200:
     logging.error(f"Failed to fetch issue: {response.status_code}")
@@ -73,10 +66,10 @@ issue_body = response.json()["body"]
 completion = client.beta.chat.completions.parse(
     model=model_name,
     messages=[
-        {"role": "system", "content": "Extract the info from the GitHub issue markdown about this hack submission."},
+        {"role": "system", "content": "Extract the info from the GitHub issue markdown."},
         {"role": "user", "content": issue_body},
     ],
-    response_format=HackSubmission,
+    response_format=Issue,
 )
 
 message = completion.choices[0].message
