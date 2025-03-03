@@ -79,6 +79,9 @@ completion = client.beta.chat.completions.parse(
     response_format=HackSubmission,
 )
 
-output = completion.choices[0].message.parsed
-hack_submission = HackSubmission.model_validate(output)
-print(hack_submission)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)
+

@@ -72,6 +72,9 @@ completion = client.beta.chat.completions.parse(
     response_format=Graph,
 )
 
-output = completion.choices[0].message.parsed
-graph = Graph.model_validate(output)
-print(graph)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)
+

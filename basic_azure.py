@@ -36,7 +36,9 @@ completion = client.beta.chat.completions.parse(
     response_format=CalendarEvent,
 )
 
-output = completion.choices[0].message.parsed
-event = CalendarEvent.model_validate(output)
+message = completion.choices[0].message
+if (message.refusal):
+    rich.print(message.refusal)
+else:
+    rich.print(message.parsed)
 
-rich.print(event)

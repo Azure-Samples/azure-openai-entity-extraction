@@ -6,7 +6,7 @@ from enum import Enum
 import azure.identity
 import openai
 import requests
-import rich
+from rich import print
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
@@ -94,6 +94,8 @@ completion = client.beta.chat.completions.parse(
     response_format=RepoOverview,
 )
 
-output = completion.choices[0].message.parsed
-repo_overview = RepoOverview.model_validate(output)
-rich.print(repo_overview)
+message = completion.choices[0].message
+if (message.refusal):
+    print(message.refusal)
+else:
+    print(message.parsed)
