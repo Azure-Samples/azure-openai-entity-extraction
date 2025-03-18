@@ -12,7 +12,7 @@ from rich import print
 logging.basicConfig(level=logging.WARNING)
 load_dotenv()
 
-if os.getenv("OPENAI_HOST", "azure") == "azure":
+if os.getenv("OPENAI_HOST", "github") == "azure":
     if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
         logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
         exit(1)
@@ -68,8 +68,7 @@ completion = client.beta.chat.completions.parse(
 )
 
 message = completion.choices[0].message
-if (message.refusal):
+if message.refusal:
     print(message.refusal)
 else:
     print(message.parsed)
-
