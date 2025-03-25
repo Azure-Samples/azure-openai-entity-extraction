@@ -8,7 +8,7 @@ from openai import AzureOpenAI
 from pydantic import BaseModel
 
 logging.basicConfig(level=logging.WARNING)
-load_dotenv()
+load_dotenv(override=True)
 
 token_provider = get_bearer_token_provider(
     AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")), "https://cognitiveservices.azure.com/.default"
@@ -37,8 +37,7 @@ completion = client.beta.chat.completions.parse(
 )
 
 message = completion.choices[0].message
-if (message.refusal):
+if message.refusal:
     rich.print(message.refusal)
 else:
     rich.print(message.parsed)
-

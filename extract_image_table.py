@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from rich import print
 
 logging.basicConfig(level=logging.WARNING)
-load_dotenv()
+load_dotenv(override=True)
 
 if os.getenv("OPENAI_HOST", "github") == "azure":
     if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
