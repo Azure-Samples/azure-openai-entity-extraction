@@ -178,4 +178,5 @@ For further security, you could also deploy the Azure OpenAI inside a private vi
 
 ## Resources
 
+* [Extract entities using Azure OpenAI structured outputs mode](https://learn.microsoft.com/azure/developer/ai/how-to/extract-entities-using-structured-outputs?tabs=github-codespaces): The Microsoft Learn how-to article for this sample, walks through both deployment and all the code for each example.
 * [How to use structured outputs](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models)
