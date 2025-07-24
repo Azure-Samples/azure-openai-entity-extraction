@@ -1,9 +1,9 @@
-POST https://models.inference.ai.azure.com/chat/completions?api-version=2024-08-01-preview
+POST https://models.github.ai/inference/chat/completions?api-version=2024-08-01-preview
 Authorization: Bearer {{$dotenv GITHUB_TOKEN}}
 Content-Type: application/json
 
 {
-    "model": "gpt-4o",
+    "model": "openai/gpt-4o",
     "messages": [
         {"role": "system", "content": "Extract the event information."},
         {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."}

@@ -5,12 +5,12 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 client = OpenAI(
-    base_url="https://models.inference.ai.azure.com",
+    base_url="https://models.github.ai/inference",
     api_key=os.environ["GITHUB_TOKEN"],
     # Specify the API version to use the Structured Outputs feature
     default_query={"api-version": "2024-08-01-preview"},
 )
-model_name = "gpt-4o"
+model_name = "openai/gpt-4o"
 
 
 class CalendarEvent(BaseModel):
