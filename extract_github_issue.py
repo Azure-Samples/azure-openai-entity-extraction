@@ -21,10 +21,9 @@ if os.getenv("OPENAI_HOST", "github") == "azure":
     token_provider = azure.identity.get_bearer_token_provider(
         credential, "https://cognitiveservices.azure.com/.default"
     )
-    client = openai.AzureOpenAI(
-        api_version="2024-08-01-preview",
-        azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
-        azure_ad_token_provider=token_provider,
+    client = openai.OpenAI(
+        base_url=f"https://{os.getenv('AZURE_OPENAI_SERVICE')}.openai.azure.com",
+        api_key=token_provider,
     )
     model_name = os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT")
 else:
