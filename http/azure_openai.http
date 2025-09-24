@@ -1,8 +1,9 @@
-POST https://{{$dotenv AZURE_OPENAI_SERVICE}}.openai.azure.com/openai/deployments/{{$dotenv AZURE_OPENAI_GPT_DEPLOYMENT}}/chat/completions?api-version=2024-08-01-preview
+POST https://{{$dotenv AZURE_OPENAI_SERVICE}}.openai.azure.com/openai/v1/chat/completions
 Authorization: Bearer {{$dotenv AZURE_OPENAI_TOKEN}}
 Content-Type: application/json
 
 {
+    "model": "{{$dotenv AZURE_OPENAI_GPT_DEPLOYMENT}}",
     "messages": [
         {"role": "system", "content": "Extract the event information."},
         {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."}
