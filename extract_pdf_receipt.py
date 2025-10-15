@@ -59,7 +59,7 @@ md_text = pymupdf4llm.to_markdown("example_receipt.pdf")
 completion = client.beta.chat.completions.parse(
     model=model_name,
     messages=[
-        {"role": "system", "content": "Extract the information from the research paper"},
+        {"role": "system", "content": "Extract the information from the receipt"},
         {"role": "user", "content": md_text},
     ],
     response_format=Receipt,
