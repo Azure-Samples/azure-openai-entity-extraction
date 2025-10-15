@@ -3,8 +3,6 @@ import os
 
 import openai
 from dotenv import load_dotenv
-
-# Import markitdown for markdown parsing
 from markitdown import MarkItDown
 from pydantic import BaseModel
 from rich import print
@@ -14,6 +12,7 @@ load_dotenv(override=True)
 
 if os.getenv("OPENAI_HOST", "github") == "azure":
     import azure.identity
+
     if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
         logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
         exit(1)
@@ -37,11 +36,13 @@ else:
     )
     model_name = "openai/gpt-4o"
 
+
 # Define models for Structured Outputs
 class DocumentMetadata(BaseModel):
     title: str
     author: str | None
     headings: list[str]
+
 
 # Use markitdown to convert docx to markdown
 md = MarkItDown(enable_plugins=False)

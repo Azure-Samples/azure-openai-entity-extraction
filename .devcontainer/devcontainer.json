@@ -18,7 +18,7 @@
                 "humao.rest-client"
             ],
             "python.defaultInterpreterPath": "/usr/local/bin/python",
-            "python.analysis.typeCheckingMode": "basic",
+            "python.analysis.typeCheckingMode": "off",
             "remote.autoForwardPorts": false,
             "[python]": {
                 "editor.formatOnSave": true,

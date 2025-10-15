@@ -29,7 +29,7 @@ completion = client.beta.chat.completions.parse(
 )
 
 message = completion.choices[0].message
-if (message.refusal):
+if message.refusal:
     rich.print(message.refusal)
 else:
     rich.print(message.parsed)
