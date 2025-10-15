@@ -1,6 +1,9 @@
 {
-    "name": "azure-openai-keyless",
-    "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
+    "name": "azure-openai-entity-extraction",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
     "features": {
         "ghcr.io/azure/azure-dev/azd:latest": {}
     },
@@ -26,9 +29,5 @@
 			}
         }
     },
-    "postCreateCommand": "pip install -r requirements.txt",
-    "remoteUser": "vscode",
-    "hostRequirements": {
-        "memory": "8gb"
-    }
+    "remoteUser": "vscode"
 }
