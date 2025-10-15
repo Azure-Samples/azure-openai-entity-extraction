@@ -7,3 +7,4 @@ beautifulsoup4
 pymupdf4llm
 azure-ai-inference
 dotenv-azd
+markitdown[docx]

@@ -1,10 +1,9 @@
 import logging
 import os
 
-import azure.identity
 import openai
-import pymupdf4llm
 from dotenv import load_dotenv
+from markitdown import MarkItDown
 from pydantic import BaseModel
 from rich import print
 
@@ -12,6 +11,8 @@ logging.basicConfig(level=logging.WARNING)
 load_dotenv(override=True)
 
 if os.getenv("OPENAI_HOST", "github") == "azure":
+    import azure.identity
+
     if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
         logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
         exit(1)
@@ -31,38 +32,30 @@ else:
     client = openai.OpenAI(
         base_url="https://models.github.ai/inference",
         api_key=os.environ["GITHUB_TOKEN"],
-        # Specify the API version to use the Structured Outputs feature
         default_query={"api-version": "2024-08-01-preview"},
     )
     model_name = "openai/gpt-4o"
 
 
 # Define models for Structured Outputs
-class Item(BaseModel):
-    product: str
-    price: float
-    quantity: int
+class DocumentMetadata(BaseModel):
+    title: str
+    author: str | None
+    headings: list[str]
 
 
-class Receipt(BaseModel):
-    total: float
-    shipping: float
-    payment_method: str
-    items: list[Item]
-    order_number: int
+# Use markitdown to convert docx to markdown
+md = MarkItDown(enable_plugins=False)
+markdown_text = md.convert("example_doc.docx").text_content
 
-
-# Prepare PDF as markdown text
-md_text = pymupdf4llm.to_markdown("example_receipt.pdf")
-
-# Send request to GPT model to extract using Structured Outputs
+# Send request to LLM to extract using Structured Outputs
 completion = client.beta.chat.completions.parse(
     model=model_name,
     messages=[
-        {"role": "system", "content": "Extract the information from the receipt"},
-        {"role": "user", "content": md_text},
+        {"role": "system", "content": "Extract the document title, author, and a list of all headings."},
+        {"role": "user", "content": markdown_text},
     ],
-    response_format=Receipt,
+    response_format=DocumentMetadata,
 )
 
 message = completion.choices[0].message
