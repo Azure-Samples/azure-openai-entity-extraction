@@ -19,6 +19,7 @@
             ],
             "python.defaultInterpreterPath": "/usr/local/bin/python",
             "python.analysis.typeCheckingMode": "off",
+            "python.createEnvironment.trigger": "off",
             "remote.autoForwardPorts": false,
             "[python]": {
                 "editor.formatOnSave": true,
