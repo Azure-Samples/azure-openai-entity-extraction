@@ -26,17 +26,17 @@ class CalendarEvent(BaseModel):
     participants: list[str]
 
 
-completion = client.beta.chat.completions.parse(
+response = client.responses.parse(
     model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
-    messages=[
+    input=[
         {"role": "system", "content": "Extract the event information."},
         {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."},
     ],
-    response_format=CalendarEvent,
+    text_format=CalendarEvent,
+    store=False,
 )
 
-message = completion.choices[0].message
-if message.refusal:
-    rich.print(message.refusal)
+if response.output_parsed:
+    rich.print(response.output_parsed)
 else:
-    rich.print(message.parsed)
+    rich.print(response.output[0].content[0].refusal)

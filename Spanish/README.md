@@ -18,7 +18,7 @@ urlFragment: azure-openai-entity-extraction
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&skip_quickstart=true&machine=basicLinux32gb&repo=784926917&devcontainer_path=.devcontainer%2Fdevcontainer.json&geo=WestUs2)
 [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/azure-openai-entity-extraction)
 
-Este repositorio incluye tanto la infraestructura como los archivos de Python necesarios para que puedas crear un deployment del modelo gpt-4o en Azure OpenAI y luego realizar extracción de entidades utilizando el [modo de salidas estructuradas](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) y el SDK de Python de openai. Se incluyen scripts de ejemplo para extraer detalles de imágenes, PDFs, páginas web e issues de GitHub.
+Este repositorio incluye tanto la infraestructura como los archivos de Python necesarios para que puedas crear un deployment del modelo gpt-4o en Azure OpenAI y luego realizar extracción de entidades utilizando el [modo de salidas estructuradas](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) y la [API de Responses](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses) del SDK de Python de openai. Se incluyen scripts de ejemplo para extraer detalles de imágenes, PDFs, páginas web e issues de GitHub.
 
 * [Características](#características)
 * [Comenzando](#comenzando)
@@ -37,7 +37,7 @@ Este repositorio incluye tanto la infraestructura como los archivos de Python ne
 * Aprovisiona una cuenta de Azure OpenAI con autenticación sin claves habilitada
 * Otorga el rol RBAC de "Cognitive Services OpenAI User" a tu cuenta de usuario
 * Despliega un modelo gpt-4o, versión 2024-08-06 (la [única versión compatible con salidas estructuradas](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models))
-* Los scripts de ejemplo usan el [paquete de Python openai](https://pypi.org/project/openai/) y [modelos Pydantic](https://docs.pydantic.dev/) para hacer solicitudes de salidas estructuradas
+* Los scripts de ejemplo usan el [paquete de Python openai](https://pypi.org/project/openai/) y [modelos Pydantic](https://docs.pydantic.dev/) para hacer solicitudes de salidas estructuradas a través de la [API de Responses](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses)
 
 ### Diagrama de arquitectura
 
@@ -122,26 +122,15 @@ Una opción relacionada es VS Code Dev Containers, que abrirá el proyecto en tu
 
 ## Ejecutando los ejemplos de Python
 
-Para ejecutar los ejemplos, necesitarás haber [desplegado la cuenta de Azure OpenAI](#despliegue) o usar GitHub models.
+Para ejecutar los ejemplos, necesitarás haber [desplegado la cuenta de Azure OpenAI](#despliegue).
 
 1. Verifica que el archivo `.env` exista en la raíz del proyecto. Si [desplegaste una cuenta de Azure OpenAI](#despliegue), debería haberse creado para ti y verse así:
 
     ```shell
-    OPENAI_HOST=azure
     AZURE_OPENAI_GPT_DEPLOYMENT=gpt-4o
     AZURE_OPENAI_SERVICE=nombre-de-tu-servicio
     AZURE_TENANT_ID=tu-tenant-id-1234
     ```
-
-    Si estás usando GitHub models, crea un archivo `.env` con el siguiente contenido:
-
-    ```shell
-    OPENAI_HOST=github
-    GITHUB_TOKEN=
-    ```
-
-    Puedes crear un token de GitHub siguiendo la [documentación de GitHub](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token),
-    o abrir este proyecto dentro de GitHub Codespaces donde el token ya está expuesto como una variable de entorno.
 
 2. Si aún no estás ejecutando en un Codespace o Dev Container, crea un entorno virtual de Python.
 
@@ -156,7 +145,6 @@ Para ejecutar los ejemplos, necesitarás haber [desplegado la cuenta de Azure Op
     | Nombre del archivo de script       | Descripción                                                                 |
     |---------------------------|-----------------------------------------------------------------------------|
     | `basic_azure.py`          | Un ejemplo básico que usa el recurso de Azure OpenAI desplegado para extraer de entrada de cadena. |
-    | `basic_githubmodels.py`         | Un ejemplo básico que usa gpt-4o gratuito de GitHub Models para extraer de entrada de cadena. |
     | `extract_github_issue.py` | Obtiene un issue público usando la API de GitHub y luego extrae detalles.     |
     | `extract_github_repo.py`  | Obtiene un README público usando la API de GitHub y luego extrae detalles.    |
     | `extract_image_graph.py`  | Analiza una imagen local de un gráfico y extrae detalles como título, ejes, leyenda. |
@@ -169,7 +157,7 @@ Para ejecutar los ejemplos, necesitarás haber [desplegado la cuenta de Azure Op
 
 ### Costos
 
-Esta plantilla solo crea el recurso de Azure OpenAI, que es gratuito de aprovisionar. Sin embargo, se te cobrará por el uso de la API de completaciones de chat de Azure OpenAI. El precio se basa en la cantidad de tokens utilizados, con alrededor de 1-3 tokens utilizados por palabra. Puedes encontrar los detalles de precios para la API de OpenAI en la [página de precios de Azure Cognitive Services](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/).
+Esta plantilla solo crea el recurso de Azure OpenAI, que es gratuito de aprovisionar. Sin embargo, se te cobrará por el uso de la API de Responses de Azure OpenAI. El precio se basa en la cantidad de tokens utilizados, con alrededor de 1-3 tokens utilizados por palabra. Puedes encontrar los detalles de precios para la API de OpenAI en la [página de precios de Azure Cognitive Services](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/).
 
 ### Directrices de seguridad
 
