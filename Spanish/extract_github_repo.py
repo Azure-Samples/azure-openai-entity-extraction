@@ -77,7 +77,7 @@ response = client.responses.parse(
     input=[
         {
             "role": "system",
-            "content": "Extrae la información del markdown del issue de GitHub sobre esta presentación del hackathon.",
+            "content": "Extrae la información del README del repositorio de GitHub sobre este proyecto.",
         },
         {"role": "user", "content": readme_content},
     ],

@@ -18,7 +18,7 @@ urlFragment: azure-openai-entity-extraction
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&skip_quickstart=true&machine=basicLinux32gb&repo=784926917&devcontainer_path=.devcontainer%2Fdevcontainer.json&geo=WestUs2)
 [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/azure-openai-entity-extraction)
 
-This repository includes both the infrastructure and Python files needed so that you can create an Azure OpenAI gpt-4o model deployment and then perform entity extraction using the [structured outputs mode](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) and the Python openai SDK's [Responses API](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses). Example scripts are provided for extracting details from images, PDFs, webpages, and GitHub issues.
+This repository includes both the infrastructure and Python files needed so that you can create an Azure OpenAI gpt-5.4 model deployment and then perform entity extraction using the [structured outputs mode](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) and the Python openai SDK's [Responses API](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses). Example scripts are provided for extracting details from images, PDFs, webpages, and GitHub issues.
 
 * [Features](#features)
 * [Getting started](#getting-started)
@@ -36,7 +36,7 @@ This repository includes both the infrastructure and Python files needed so that
 
 * Provisions an Azure OpenAI account with keyless authentication enabled
 * Grants the "Cognitive Services OpenAI User" RBAC role to your user account
-* Deploys a gpt-4o model, version 2024-08-06 (the [only version supported for structured outputs](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models)
+* Deploys a gpt-5.4 model, version 2026-03-05 (a [version that supports structured outputs](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models))
 * Example scripts use the [openai Python package](https://pypi.org/project/openai/) and [Pydantic models](https://docs.pydantic.dev/) to make requests for structured outputs via the [Responses API](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses)
 
 ### Architecture diagram
@@ -127,7 +127,7 @@ To run the samples, you'll need to have already [deployed the Azure OpenAI accou
 1. Check that the `.env` file exists in the root of the project. If you [deployed an Azure OpenAI account](#deployment), it should have been created for you, and look like this:
 
     ```shell
-    AZURE_OPENAI_GPT_DEPLOYMENT=gpt-4o
+    AZURE_OPENAI_GPT_DEPLOYMENT=gpt-5.4
     AZURE_OPENAI_SERVICE=your-service-name
     AZURE_TENANT_ID=your-tenant-id-1234
     ```

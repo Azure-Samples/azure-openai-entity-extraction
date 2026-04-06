@@ -75,7 +75,7 @@ response = client.responses.parse(
     input=[
         {
             "role": "system",
-            "content": "Extract the information from the GitHub issue markdown about this hack submission.",
+            "content": "Extract the information from the GitHub repository README markdown about this project.",
         },
         {"role": "user", "content": readme_content},
     ],

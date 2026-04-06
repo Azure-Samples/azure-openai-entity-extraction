@@ -10,6 +10,10 @@ from pydantic import BaseModel
 logging.basicConfig(level=logging.WARNING)
 load_dotenv(override=True)
 
+if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
+    logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
+    exit(1)
+
 token_provider = get_bearer_token_provider(
     AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")), "https://cognitiveservices.azure.com/.default"
 )
