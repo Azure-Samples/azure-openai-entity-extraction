@@ -18,7 +18,7 @@ urlFragment: azure-openai-entity-extraction
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&skip_quickstart=true&machine=basicLinux32gb&repo=784926917&devcontainer_path=.devcontainer%2Fdevcontainer.json&geo=WestUs2)
 [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/azure-openai-entity-extraction)
 
-This repository includes both the infrastructure and Python files needed so that you can create an Azure OpenAI gpt-4o model deployment and then perform entity extraction using the [structured outputs mode](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) and the Python openai SDK. Example scripts are provided for extracting details from images, PDFs, webpages, and GitHub issues.
+This repository includes both the infrastructure and Python files needed so that you can create an Azure OpenAI gpt-5.4 model deployment and then perform entity extraction using the [structured outputs mode](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure) and the Python openai SDK's [Responses API](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses). Example scripts are provided for extracting details from images, PDFs, webpages, and GitHub issues.
 
 * [Features](#features)
 * [Getting started](#getting-started)
@@ -36,8 +36,8 @@ This repository includes both the infrastructure and Python files needed so that
 
 * Provisions an Azure OpenAI account with keyless authentication enabled
 * Grants the "Cognitive Services OpenAI User" RBAC role to your user account
-* Deploys a gpt-4o model, version 2024-08-06 (the [only version supported for structured outputs](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models)
-* Example scripts use the [openai Python package](https://pypi.org/project/openai/) and [Pydantic models](https://docs.pydantic.dev/) to make requests for structured outputs
+* Deploys a gpt-5.4 model, version 2026-03-05 (a [version that supports structured outputs](https://learn.microsoft.com/azure/ai-services/openai/how-to/structured-outputs?tabs=python-secure#supported-models))
+* Example scripts use the [openai Python package](https://pypi.org/project/openai/) and [Pydantic models](https://docs.pydantic.dev/) to make requests for structured outputs via the [Responses API](https://learn.microsoft.com/azure/ai-foundry/openai/how-to/responses)
 
 ### Architecture diagram
 
@@ -122,26 +122,15 @@ A related option is VS Code Dev Containers, which will open the project in your 
 
 ## Running the Python examples
 
-To run the samples, you'll either need to have already [deployed the Azure OpenAI account](#deployment) or use GitHub models.
+To run the samples, you'll need to have already [deployed the Azure OpenAI account](#deployment).
 
 1. Check that the `.env` file exists in the root of the project. If you [deployed an Azure OpenAI account](#deployment), it should have been created for you, and look like this:
 
     ```shell
-    OPENAI_HOST=azure
-    AZURE_OPENAI_GPT_DEPLOYMENT=gpt-4o
+    AZURE_OPENAI_GPT_DEPLOYMENT=gpt-5.4
     AZURE_OPENAI_SERVICE=your-service-name
     AZURE_TENANT_ID=your-tenant-id-1234
     ```
-
-    If you're using GitHub models, create a `.env` file with the following content:
-
-    ```shell
-    OPENAI_HOST=github
-    GITHUB_TOKEN=
-    ```
-
-    You can create a GitHub token by following the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token),
-    or open this project inside GitHub Codespaces where the token is already exposed as an environment variable.
 
 2. If you're not already running in a Codespace or Dev Container, create a Python virtual environment.
 
@@ -156,7 +145,6 @@ To run the samples, you'll either need to have already [deployed the Azure OpenA
     | Script filename       | Description                                                                 |
     |---------------------------|-----------------------------------------------------------------------------|
     | `basic_azure.py`          | A basic example that uses deployed Azure OpenAI resource to extract from string input. |
-    | `basic_githubmodels.py`         | A basic example that uses free gpt-4o from GitHub Models  to extract from string input. |
     | `extract_github_issue.py` | Fetches a public issue using the GitHub API, and then extracts details.     |
     | `extract_github_repo.py`  | Fetches a public README using the GitHub API, and then extracts details.    |
     | `extract_image_graph.py`  | Parses a local image of a graph and extracts details like title, axis, legend. |
@@ -168,7 +156,7 @@ To run the samples, you'll either need to have already [deployed the Azure OpenA
 
 ### Costs
 
-This template creates only the Azure OpenAI resource, which is free to provision. However, you will be charged for the usage of the Azure OpenAI chat completions API. The pricing is based on the number of tokens used, with around 1-3 tokens used per word. You can find the pricing details for the OpenAI API on the [Azure Cognitive Services pricing page](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/).
+This template creates only the Azure OpenAI resource, which is free to provision. However, you will be charged for the usage of the Azure OpenAI Responses API. The pricing is based on the number of tokens used, with around 1-3 tokens used per word. You can find the pricing details for the OpenAI API on the [Azure Cognitive Services pricing page](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/).
 
 ### Security guidelines
 

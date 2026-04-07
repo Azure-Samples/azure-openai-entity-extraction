@@ -10,6 +10,10 @@ from pydantic import BaseModel
 logging.basicConfig(level=logging.WARNING)
 load_dotenv(override=True)
 
+if not os.getenv("AZURE_OPENAI_SERVICE") or not os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"):
+    logging.warning("AZURE_OPENAI_SERVICE and AZURE_OPENAI_GPT_DEPLOYMENT env variables are empty. See README.")
+    exit(1)
+
 token_provider = get_bearer_token_provider(
     AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID")), "https://cognitiveservices.azure.com/.default"
 )
@@ -26,17 +30,17 @@ class CalendarEvent(BaseModel):
     participants: list[str]
 
 
-completion = client.beta.chat.completions.parse(
+response = client.responses.parse(
     model=os.getenv("AZURE_OPENAI_GPT_DEPLOYMENT"),
-    messages=[
+    input=[
         {"role": "system", "content": "Extrae la información del evento."},
         {"role": "user", "content": "Alicia y Roberto van a ir a una feria de ciencias el viernes."},
     ],
-    response_format=CalendarEvent,
+    text_format=CalendarEvent,
+    store=False,
 )
 
-message = completion.choices[0].message
-if message.refusal:
-    rich.print(message.refusal)
+if response.output_parsed:
+    rich.print(response.output_parsed)
 else:
-    rich.print(message.parsed)
+    rich.print(response.output[0].content[0].refusal)
